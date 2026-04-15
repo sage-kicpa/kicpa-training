@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>지방 회원사 채용 지원 프로젝트 - 한국공인회계사회</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #fcfbf9;
+            color: #333333;
+            scroll-behavior: smooth;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: auto;
+            height: 380px;
+            background: #ffffff;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .u-icon { font-style: normal; display: inline-block; }
+        
+        .hover-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid transparent; }
+        .hover-card:hover { transform: translateY(-8px); border-color: #cbd5e1; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
+
+        .text-brand-blue { color: #1e3a8a; }
+        .bg-brand-blue { background-color: #1e3a8a; }
+        .bg-brand-gold { background-color: #fef3c7; }
+        
+        [data-content] { min-height: 1em; }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 top-0 transition-all duration-300 py-4 bg-white/80 backdrop-blur-md border-b border-gray-100" id="navbar">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-3 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <div class="bg-brand-blue p-2 rounded-lg shadow-lg shadow-blue-900/20">
+                        <span class="text-xl u-icon text-white leading-none">🏛️</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-bold text-lg tracking-tight text-gray-900 leading-none" data-content="nav_title">한국공인회계사회</span>
+                        <span class="text-[10px] text-brand-blue font-bold tracking-widest mt-1" data-content="nav_subtitle">정보화전략본부</span>
+                    </div>
+                </div>
+                <div class="hidden md:flex space-x-8 text-sm font-semibold">
+                    <a href="#overview" class="text-gray-500 hover:text-brand-blue transition">사업 개요</a>
+                    <a href="#benefits" class="text-gray-500 hover:text-brand-blue transition">핵심 혜택</a>
+                    <a href="#roi-calc" class="text-gray-500 hover:text-brand-blue transition">도입 효과</a>
+                    <a href="#talent" class="text-gray-500 hover:text-brand-blue transition">인재 역량</a>
+                </div>
+                <div>
+                    <a href="#survey" class="bg-brand-blue hover:bg-blue-900 text-white px-6 py-2.5 rounded-xl font-bold transition shadow-lg shadow-blue-900/20 text-sm inline-flex items-center">
+                        수요조사 참여 <span class="u-icon ml-2">📝</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="pt-40 pb-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10 lg:gap-16">
+        <div class="md:flex-[1.4] text-center md:text-left">
+            <div class="inline-flex items-center bg-brand-gold text-amber-700 font-bold px-4 py-1.5 rounded-full text-xs mb-8 border border-amber-200 shadow-sm">
+                <span class="mr-2">📢</span> <span data-content="hero_badge">지방 회원사 인력난 해소 특별 프로젝트</span>
+            </div>
+            <h1 class="text-[29px] md:text-[41px] lg:text-[53px] font-black text-gray-900 leading-[1.25] mb-8 break-keep" data-content="hero_title">
+                실무형 인재 채용하고<br>
+                <span class="text-brand-blue underline decoration-blue-100 decoration-8 underline-offset-8">인건비 부담</span> 덜어내세요.
+            </h1>
+            <p class="text-lg md:text-xl text-gray-500 mb-10 max-w-2xl leading-relaxed break-keep" data-content="hero_desc">
+                만성적인 기장·세무 보조 인력 부족, 이제 본회가 해결의 실마리를 제공합니다. 검증된 실무 인재 매칭과 정부 지원금을 통한 안정적인 고용 환경을 구축하십시오.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                <a href="#roi-calc" class="bg-white border-2 border-gray-200 text-gray-700 px-8 py-4 rounded-2xl font-bold hover:border-brand-blue hover:text-brand-blue transition text-center shadow-sm">
+                    도입 효과 시뮬레이션 <span class="u-icon ml-1">📉</span>
+                </a>
+            </div>
+        </div>
+        <div class="md:flex-1 w-full relative">
+            <div class="absolute inset-0 bg-blue-100 rounded-full blur-3xl opacity-30 transform -translate-y-10 scale-110"></div>
+            <div class="bg-white p-10 rounded-[2.5rem] shadow-2xl border border-gray-100 relative z-10 w-full max-w-md mx-auto md:mr-0">
+                <div class="text-6xl mb-6 u-icon">🤝</div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-3" data-content="card_cta_title">수요조사 진행 중</h3>
+                <p class="text-gray-500 mb-8 text-sm leading-relaxed break-keep" data-content="card_cta_desc">참여 기업에 한해 우선 매칭 및 장려금 혜택이 집중 지원됩니다.</p>
+                <div class="space-y-3 mb-8">
+                    <div class="flex justify-between items-center bg-slate-50 p-4 rounded-2xl">
+                        <span class="text-sm font-bold text-gray-500">대상</span>
+                        <span class="text-sm text-brand-blue font-bold">전체 회원사 (5인 미만 포함)</span>
+                    </div>
+                    <div class="flex justify-between items-center bg-red-50 p-4 rounded-2xl">
+                        <span class="text-sm font-bold text-red-400">기한</span>
+                        <span class="text-sm text-red-600 font-bold">선착순 예산 소진 시까지</span>
+                    </div>
+                </div>
+                <a href="#survey" class="block w-full bg-brand-blue text-white py-4 rounded-2xl font-bold shadow-xl shadow-blue-900/20 hover:bg-blue-800 transition text-center">
+                    지금 1분 만에 참여하기
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Pain Points Section -->
+    <section id="overview" class="py-24 bg-white border-y border-gray-100">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-black text-gray-900 mb-4" data-content="pain_section_title">지방 사무소의 현실적 고충</h2>
+                <p class="text-gray-400 text-lg max-w-2xl mx-auto break-keep" data-content="pain_section_desc">지역 회원사들이 겪고 있는 실질적인 어려움을 해결하기 위해 본 사업을 기획했습니다.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <div class="bg-gray-50 rounded-[2rem] p-10 hover-card group">
+                    <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-sm group-hover:bg-red-50 transition">🏃</div>
+                    <h3 class="text-xl font-bold mb-4 text-gray-800" data-content="pain_1_title">인력 수급 불균형</h3>
+                    <p class="text-gray-500 leading-relaxed text-sm break-keep" data-content="pain_1_desc">수도권 집중 현상으로 인해 지방 사무소는 신규 인력 채용 공고조차 내기 어려운 실정입니다.</p>
+                </div>
+                <div class="bg-gray-50 rounded-[2rem] p-10 hover-card group">
+                    <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-sm group-hover:bg-orange-50 transition">💰</div>
+                    <h3 class="text-xl font-bold mb-4 text-gray-800" data-content="pain_2_title">고정 인건비의 한계</h3>
+                    <p class="text-gray-500 leading-relaxed text-sm break-keep" data-content="pain_2_desc">경력직 위주의 채용은 바로 높은 고정비 부담으로 이어져 경영의 유연성을 떨어뜨립니다.</p>
+                </div>
+                <div class="bg-gray-50 rounded-[2rem] p-10 hover-card group">
+                    <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-sm group-hover:bg-purple-50 transition">⏳</div>
+                    <h3 class="text-xl font-bold mb-4 text-gray-800" data-content="pain_3_title">교육 리스크</h3>
+                    <p class="text-gray-500 leading-relaxed text-sm break-keep" data-content="pain_3_desc">신입을 뽑더라도 실무 투입 전까지 소요되는 선임자의 리소스 소모가 너무나 큽니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section (Static Cards) -->
+    <section id="benefits" class="py-24 bg-slate-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-black text-gray-900 mb-4" data-content="benefit_section_title">회원사를 위한 핵심 패키지</h2>
+                <p class="text-gray-400 text-lg max-w-2xl mx-auto break-keep" data-content="benefit_section_desc">인재 매칭부터 행정 대행까지, 회원사의 부담을 제로로 만듭니다.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="benefit-container">
+                <!-- JS will inject static cards here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ROI Section -->
+    <section id="roi-calc" class="py-24 bg-white">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-black text-gray-900 mb-4" data-content="roi_title">도입 효과 시뮬레이션</h2>
+                <p class="text-gray-400 text-lg max-w-2xl mx-auto break-keep" data-content="roi_desc">기업 지원금과 청년 직접 지원금을 분리하여 정확한 기대 효과를 확인하세요.</p>
+            </div>
+
+            <div class="flex flex-col lg:flex-row gap-12 items-stretch">
+                <!-- Controls and Stats -->
+                <div class="w-full lg:w-2/5 space-y-6 bg-slate-50 p-10 rounded-[2.5rem] border border-slate-200">
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-4">채용 인원 설정 (명)</label>
+                        <div class="px-2 mb-8">
+                            <input type="range" id="hireCount" min="1" max="5" value="1" class="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-brand-blue">
+                            <div class="flex justify-between mt-2 text-xs font-bold text-gray-400">
+                                <span>1명</span><span>2명</span><span>3명</span><span>4명</span><span>5명</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-4 pt-6 border-t border-slate-200">
+                        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
+                            <h4 class="text-xs font-bold text-gray-400 mb-3 uppercase tracking-wider">1년 차: 기업 인건비 절감</h4>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm text-gray-500 italic">표준 인건비 (연봉 2,800만 가정)</span>
+                                <span class="font-bold text-gray-800" id="stdCostDisplay">2,800만원</span>
+                            </div>
+                            <div class="flex justify-between items-center p-3 bg-blue-50 rounded-xl mb-3">
+                                <span class="text-sm text-brand-blue font-bold">기업 지원금 (일자리도약)</span>
+                                <span class="font-bold text-brand-blue" id="firmSubsidyDisplay">- 720만원</span>
+                            </div>
+                            <div class="flex justify-between items-center pt-2 border-t border-slate-50">
+                                <span class="text-base font-black text-gray-900">회원사 실질 부담액</span>
+                                <span class="text-2xl font-black text-red-500" id="realCostDisplay">2,080만원</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-5 rounded-2xl shadow-sm border border-brand-blue/20">
+                            <h4 class="text-xs font-bold text-brand-blue mb-3 uppercase tracking-wider">2년 차: 청년 장기근속 유도</h4>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm text-gray-500">기업 고정 임금</span>
+                                <span class="font-bold text-gray-800">2,800만원</span>
+                            </div>
+                            <div class="flex justify-between items-center p-3 bg-green-50 rounded-xl mb-3">
+                                <span class="text-sm text-green-700 font-bold">청년 직접 지원금 (본인 수령)</span>
+                                <span class="font-bold text-green-700" id="youthSubsidyDisplay">+ 480만원</span>
+                            </div>
+                            <div class="flex justify-between items-center pt-2 border-t border-slate-50">
+                                <span class="text-base font-black text-gray-900">청년 체감 보상 수준</span>
+                                <span class="text-2xl font-black text-brand-blue" id="feltRewardDisplay">3,280만원</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="text-[11px] text-gray-400 leading-relaxed break-keep">
+                        * 청년일자리도약장려금은 1년차에 최대 720만원(기업), 2년차에 480만원(청년)이 지급되는 구조를 시뮬레이션한 예시입니다. 실제 지원금액은 정부 지침에 따라 변동될 수 있습니다.
+                    </p>
+                </div>
+
+                <!-- Chart -->
+                <div class="w-full lg:w-3/5">
+                    <div class="chart-container h-full">
+                        <canvas id="roiChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Talent Section -->
+    <section id="talent" class="py-24 bg-[#0a0f1e] text-white">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-black mb-4" data-content="talent_title">KICPA가 보증하는 실무 역량</h2>
+                <p class="text-slate-400 text-lg max-w-2xl mx-auto break-keep" data-content="talent_desc">즉시 투입 가능한 수준의 디지털 역량을 갖춘 인재를 검증합니다.</p>
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-16 items-center">
+                <div class="w-full md:w-1/2 flex justify-center">
+                    <div class="chart-container radar-container bg-transparent border-none shadow-none" style="height:400px; width:100%;">
+                        <canvas id="competencyChart"></canvas>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2 space-y-10" id="skill-container"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Survey Section -->
+    <section id="survey" class="py-32 bg-white relative overflow-hidden">
+        <div class="absolute inset-0 bg-brand-gold/10 transform skew-y-3 origin-top-left z-0"></div>
+        <div class="max-w-4xl mx-auto px-4 relative z-10 text-center">
+            <div class="bg-white rounded-[3rem] p-12 shadow-2xl border border-gray-100 mb-16 text-left">
+                <h3 class="text-3xl font-black text-brand-blue mb-8 leading-tight break-keep" data-content="final_persuasion_title">회원님, 이 파격적인 혜택을<br>지역 사무소의 경쟁력으로 만드십시오.</h3>
+                <div class="space-y-6 text-gray-600 text-lg leading-relaxed break-keep">
+                    <p data-content="final_persuasion_p1">이번 사업은 국고 예산을 확보하여 회원님들께 실질적인 현금 혜택을 돌려드리는 프로젝트입니다.</p>
+                    <p class="font-bold text-gray-900" data-content="final_persuasion_p2">기업은 비용을 아끼고, 청년은 보상을 더 받는 이 기회를 지금 바로 선점하십시오.</p>
+                </div>
+            </div>
+            <h2 class="text-3xl font-black text-gray-900 mb-2">지방 회원사 채용 수요조사</h2>
+            <p class="text-gray-400 mb-10">본 조사는 국고 예산 지역 배정을 위한 필수 절차입니다. (약 2분 소요)</p>
+            
+            <!-- 설문조사 링크 연결 수정 완료 -->
+            <a href="https://forms.gle/JZeAVZvwpWd9GhX9A" target="_blank" class="inline-flex items-center bg-brand-blue hover:bg-blue-800 text-white font-black text-2xl px-16 py-6 rounded-[2rem] shadow-2xl shadow-blue-900/30 hover:-translate-y-2 transition-all">
+                수요조사 참여하기 <span class="u-icon ml-3">👉</span>
+            </a>
+            
+            <div class="mt-12 text-sm text-gray-400 font-medium italic">
+                문의: 정보화전략본부 신현지 선임조사역 (02-3149-0227 / hjshin@kicpa.kr)
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-50 border-t border-gray-200 py-12 text-center">
+        <div class="max-w-6xl mx-auto px-4 opacity-50">
+            <span class="font-bold">© 2026 한국공인회계사회. ALL RIGHTS RESERVED.</span>
+        </div>
+    </footer>
+
+    <script>
+        const CONFIG_CONTENT = {
+            nav_title: "한국공인회계사회",
+            nav_subtitle: "정보화전략본부 DIGITAL KICPA",
+            hero_badge: "지방 회원사 인력난 해소 특별 프로젝트",
+            hero_title: "실무형 인재 채용하고<br><span class='text-brand-blue underline decoration-blue-100 decoration-8 underline-offset-8'>인건비 부담</span> 덜어내세요.",
+            hero_desc: "만성적인 기장·세무 보조 인력 부족, 이제 본회가 돕겠습니다. 검증된 실무 인재 매칭과 최대 1,200만원의 지원 혜택을 통해 지역의 고용 경쟁력을 높이십시오.",
+            card_cta_title: "수요조사 진행 중",
+            card_cta_desc: "참여 기업에 한해 우선 매칭 및 장려금 혜택이 집중 지원됩니다.",
+            pain_section_title: "지방 사무소의 고질적 인력난",
+            pain_section_desc: "수도권 편중과 고정비 상승이라는 이중고를 본회가 함께 고민합니다.",
+            pain_1_title: "수도권 쏠림 현상",
+            pain_1_desc: "지방 사무소는 적합한 인재를 찾기조차 어려운 현실입니다.",
+            pain_2_title: "높은 고정 인건비",
+            pain_2_desc: "신입 채용이 어려워 경력직 위주로 채용하며 발생하는 경영 부담을 해소해야 합니다.",
+            pain_3_title: "즉시 전력 부재",
+            pain_3_desc: "채용 후 바로 업무에 투입하기 위해 소요되는 교육 비용을 본회가 대신 부담합니다.",
+            benefit_section_title: "회원사를 위한 핵심 패키지",
+            benefit_section_desc: "인재 매칭부터 행정 대행까지, 회원사의 부담을 제로로 만듭니다.",
+            benefits: [
+                { id: "benefit-1", title: "검증된 AT 실무 인재", icon: "🎓", desc: "본회가 인증한 AT 자격 기반의 집중 교육 수료생을 매칭하여 교육 리스크를 없앱니다." },
+                { id: "benefit-2", title: "연 1,200만원 지원 패키지", icon: "💵", badge: "강력 추천", desc: "1년차 기업 지원금(720만원)과 2년차 청년 직접 지원금(480만원)을 통해 실질 인건비는 낮추고 청년의 장기 근속은 유도합니다." },
+                { id: "benefit-3", title: "디지털 인프라 무상 지원", icon: "💻", desc: "AI ERP(파로스 등) 라이선스 및 디지털 업무 매뉴얼을 무상으로 공급합니다." },
+                { id: "benefit-4", title: "정부 지원 행정 올케어", icon: "🛡️", desc: "복잡한 정부 지원금 신청 절차를 본회와 협약 기관이 전담하여 행정 부담을 최소화합니다." }
+            ],
+            roi_title: "도입 효과 시뮬레이션",
+            roi_desc: "원장님의 인건비 부담은 낮아지고, 청년의 근속 의지는 높아집니다.",
+            talent_title: "준비된 실무 인재의 역량",
+            talent_desc: "직업계고 졸업생의 빠른 적응력과 디지털 역량을 검증했습니다.",
+            skills: [
+                { title: "전표 및 기장 실무", icon: "📄", desc: "회계원리에 입각한 정확한 데이터 입력 및 기초 전표 처리가 가능합니다." },
+                { title: "결산 및 세무 보조", icon: "📊", desc: "부가세 신고 등 주요 세무 일정에 맞춘 서류 정리 및 업무 보조를 수행합니다." },
+                { title: "디지털 적응력", icon: "🖥️", desc: "AI ERP 시스템 등 최신 업무 툴을 빠르게 습득하여 사무실의 디지털화를 돕습니다." }
+            ],
+            final_persuasion_title: "회원님, 이 파격적인 혜택을<br>지역 사무소의 경쟁력으로 만드십시오.",
+            final_persuasion_p1: "이번 사업은 국고 예산을 확보하여 회원님들께 실질적인 현금 혜택을 돌려드리는 프로젝트입니다.",
+            final_persuasion_p2: "기업은 비용을 아끼고, 청년은 보상을 더 받는 이 기회를 지금 바로 선점하십시오."
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Bind Static Content
+            Object.keys(CONFIG_CONTENT).forEach(key => {
+                const elements = document.querySelectorAll(`[data-content="${key}"]`);
+                elements.forEach(el => { el.innerHTML = CONFIG_CONTENT[key]; });
+            });
+
+            // Navigation
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) navbar.classList.add('shadow-xl', 'py-2');
+                else navbar.classList.remove('shadow-xl', 'py-2');
+            });
+
+            // Render Benefits (Static Card Layout)
+            const benefitContainer = document.getElementById('benefit-container');
+            if (benefitContainer) {
+                CONFIG_CONTENT.benefits.forEach(b => {
+                    const card = document.createElement('div');
+                    card.className = `bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm hover-card relative overflow-hidden flex flex-col`;
+                    card.innerHTML = `
+                        ${b.badge ? `<div class="absolute top-0 right-0 bg-red-500 text-white text-[10px] font-bold px-4 py-1.5 rounded-bl-2xl z-10 shadow-sm">${b.badge}</div>` : ''}
+                        <div class="flex items-center gap-5 mb-6">
+                            <div class="w-14 h-14 rounded-2xl bg-slate-50 text-brand-blue flex items-center justify-center text-3xl u-icon shadow-inner">${b.icon}</div>
+                            <h3 class="text-xl font-extrabold text-gray-900">${b.title}</h3>
+                        </div>
+                        <div class="text-gray-500 text-[15px] leading-relaxed break-keep">
+                            ${b.desc}
+                        </div>
+                    `;
+                    benefitContainer.appendChild(card);
+                });
+            }
+
+            // Render Skills
+            const skillContainer = document.getElementById('skill-container');
+            if (skillContainer) {
+                CONFIG_CONTENT.skills.forEach(s => {
+                    const div = document.createElement('div');
+                    div.className = "flex items-start gap-6 group break-keep";
+                    div.innerHTML = `
+                        <div class="mt-1 text-3xl u-icon text-blue-400 group-hover:scale-125 transition duration-300">${s.icon}</div>
+                        <div>
+                            <h4 class="text-xl font-bold mb-2 text-white group-hover:text-blue-400 transition">${s.title}</h4>
+                            <p class="text-slate-400 text-sm leading-relaxed">${s.desc}</p>
+                        </div>
+                    `;
+                    skillContainer.appendChild(div);
+                });
+            }
+
+            // ROI Simulator Logic
+            const SALARY = 2800; 
+            const FIRM_SUB = 720; 
+            const YOUTH_SUB = 480; 
+
+            const hireInput = document.getElementById('hireCount');
+            const hireDisplay = document.getElementById('hireCountDisplay');
+            const stdDisplay = document.getElementById('stdCostDisplay');
+            const firmSubDisplay = document.getElementById('firmSubsidyDisplay');
+            const realDisplay = document.getElementById('realCostDisplay');
+            const youthSubDisplay = document.getElementById('youthSubsidyDisplay');
+            const rewardDisplay = document.getElementById('feltRewardDisplay');
+
+            const roiCtx = document.getElementById('roiChart') ? document.getElementById('roiChart').getContext('2d') : null;
+            let roiChart = null;
+            
+            if (roiCtx) {
+                roiChart = new Chart(roiCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['비지원 채용 (연봉 기준)', '1년차: 회원사 부담액', '2년차: 청년 체감보상'],
+                        datasets: [
+                            {
+                                label: '지급 급여 (기업 지출)',
+                                data: [SALARY, SALARY - FIRM_SUB, SALARY],
+                                backgroundColor: ['#e2e8f0', '#ef4444', '#1e3a8a'],
+                                borderRadius: 12,
+                                barThickness: 50
+                            },
+                            {
+                                label: '정부 지원 혜택 (기업/청년)',
+                                data: [0, FIRM_SUB, YOUTH_SUB],
+                                backgroundColor: ['transparent', '#fee2e2', '#dcfce7'],
+                                borderRadius: 12,
+                                barThickness: 50
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: { stacked: true, grid: { display: false } },
+                            y: { 
+                                stacked: false, 
+                                beginAtZero: true, 
+                                ticks: { callback: v => v + '만' },
+                                max: 4000
+                            }
+                        },
+                        plugins: {
+                            legend: { position: 'bottom', labels: { boxWidth: 12 } }
+                        }
+                    }
+                });
+            }
+
+            function updateROI() {
+                if (!hireInput) return;
+                const count = parseInt(hireInput.value);
+                if (hireDisplay) hireDisplay.textContent = count;
+                const stdTotal = SALARY * count;
+                const firmSubTotal = FIRM_SUB * count;
+                const youthSubTotal = YOUTH_SUB * count;
+                const realTotal = stdTotal - firmSubTotal;
+                const rewardTotal = stdTotal + youthSubTotal;
+                if (stdDisplay) stdDisplay.textContent = stdTotal.toLocaleString() + '만원';
+                if (firmSubDisplay) firmSubDisplay.textContent = '- ' + firmSubTotal.toLocaleString() + '만원';
+                if (realDisplay) realDisplay.textContent = realTotal.toLocaleString() + '만원';
+                if (youthSubDisplay) youthSubDisplay.textContent = '+ ' + youthSubTotal.toLocaleString() + '만원';
+                if (rewardDisplay) rewardDisplay.textContent = rewardTotal.toLocaleString() + '만원';
+                if (roiChart) {
+                    roiChart.data.datasets[0].data = [stdTotal, realTotal, stdTotal];
+                    roiChart.data.datasets[1].data = [0, firmSubTotal, youthSubTotal];
+                    roiChart.update();
+                }
+            }
+
+            if (hireInput) {
+                hireInput.addEventListener('input', updateROI);
+                updateROI();
+            }
+
+            // Radar Chart
+            const compCanvas = document.getElementById('competencyChart');
+            if (compCanvas) {
+                const compCtx = compCanvas.getContext('2d');
+                new Chart(compCtx, {
+                    type: 'radar',
+                    data: {
+                        labels: ['전표입력', '부가세 신고', '결산 보조', 'ERP 활용', '조직 적응'],
+                        datasets: [{
+                            label: '교육 수료생 역량',
+                            data: [95, 85, 80, 95, 90],
+                            fill: true,
+                            backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                            borderColor: '#3b82f6',
+                            pointBackgroundColor: '#3b82f6',
+                            borderWidth: 3
+                        },
+                        {
+                            label: '일반 신입 (기준)',
+                            data: [50, 30, 20, 60, 70],
+                            fill: true,
+                            backgroundColor: 'rgba(148, 163, 184, 0.1)',
+                            borderColor: 'rgba(148, 163, 184, 0.5)',
+                            borderDash: [5, 5]
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            r: {
+                                angleLines: { color: 'rgba(255,255,255,0.1)' },
+                                grid: { color: 'rgba(255,255,255,0.1)' },
+                                pointLabels: { font: { size: 13, weight: 'bold' }, color: '#94a3b8' },
+                                ticks: { display: false, min: 0, max: 100 }
+                            }
+                        },
+                        plugins: { legend: { position: 'bottom', labels: { color: '#94a3b8' } } }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
