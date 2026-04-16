@@ -221,19 +221,41 @@
             </div>
 
             <div class="content-block rounded-[3rem] p-8 md:p-12 mb-12 shadow-lg">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-                    <div class="space-y-2 text-left">
-                        <label class="text-sm font-bold text-gray-600 ml-1">광역시도</label>
-                        <select id="region-depth1" class="w-full p-4 rounded-2xl border-2 border-slate-100 shadow-sm focus:border-brand-blue outline-none transition cursor-pointer bg-slate-50 font-bold">
+                <!-- 지역 선택 필터 (강조 및 안내 메시지 추가됨) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                    
+                    <!-- 1. 광역시도 선택 영역 -->
+                    <div class="space-y-2 text-left relative group">
+                        <label class="text-sm font-black text-brand-blue ml-1 flex items-center gap-1">
+                            <span class="animate-pulse">👉</span> 광역시도 선택
+                        </label>
+                        
+                        <!-- 마우스 호버 시 나타나는 안내 메시지(툴팁) -->
+                        <div class="absolute -top-10 left-0 bg-brand-blue text-white text-[11px] font-bold px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none shadow-xl z-20 translate-y-2 group-hover:translate-y-0">
+                            📍 회원님의 사업장이 속한 광역시도를 먼저 선택해 주세요!
+                        </div>
+
+                        <select id="region-depth1" class="w-full p-5 rounded-2xl border-4 border-brand-blue/30 shadow-md focus:border-brand-blue outline-none transition-all cursor-pointer bg-white font-black text-lg hover:border-brand-blue hover:scale-[1.01]">
                             <option value="">광역시도 선택</option>
                         </select>
                     </div>
-                    <div class="space-y-2 text-left">
-                        <label class="text-sm font-bold text-gray-600 ml-1">시/군/구</label>
-                        <select id="region-depth2" class="w-full p-4 rounded-2xl border-2 border-slate-100 shadow-sm focus:border-brand-blue outline-none transition cursor-pointer bg-slate-50 font-bold">
+
+                    <!-- 2. 시/군/구 선택 영역 -->
+                    <div class="space-y-2 text-left relative group">
+                        <label class="text-sm font-black text-brand-blue ml-1 flex items-center gap-1">
+                            <span class="animate-pulse">👉</span> 상세 시/군/구 선택
+                        </label>
+
+                        <!-- 마우스 호버 시 나타나는 안내 메시지(툴팁) -->
+                        <div class="absolute -top-10 left-0 bg-brand-blue text-white text-[11px] font-bold px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none shadow-xl z-20 translate-y-2 group-hover:translate-y-0">
+                            📍 상세 지역까지 선택하시면 혜택 금액이 자동 계산됩니다!
+                        </div>
+
+                        <select id="region-depth2" class="w-full p-5 rounded-2xl border-4 border-brand-blue/30 shadow-md focus:border-brand-blue outline-none transition-all cursor-pointer bg-white font-black text-lg hover:border-brand-blue hover:scale-[1.01]">
                             <option value="">시/군/구 선택</option>
                         </select>
                     </div>
+
                 </div>
 
                 <div class="flex flex-col lg:flex-row gap-12 items-stretch">
