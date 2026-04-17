@@ -310,7 +310,8 @@
             <!-- 타임라인 버블 영역 -->
             <div class="relative mt-20 mb-10 overflow-x-auto">
                 <div class="hidden md:block absolute top-1/2 left-0 w-full h-1 bg-slate-300 -translate-y-1/2 z-0"></div>
-                <div class="flex flex-col md:flex-row justify-between items-center gap-12 md:gap-4 relative z-10 min-w-[800px] md:min-w-full" id="timeline-container">
+                <div class="block md:hidden absolute left-1/2 top-0 bottom-0 w-1 bg-slate-200 -translate-x-1/2 z-0"></div>
+                <div class="flex flex-col md:flex-row justify-between items-center gap-12 md:gap-4 relative z-10 w-full md:min-w-[800px]" id="timeline-container">
                     <!-- JS Bubbles -->
                 </div>
             </div>
@@ -506,10 +507,12 @@
                     { label: "18개월차", firm: 0, youth: policy.youth[2] },
                     { label: "24개월차", firm: 0, youth: policy.youth[3] }
                 ];
+                const timelineCont = document.getElementById('timeline-container');
                 timelineCont.innerHTML = '';
+
                 milestones.forEach(m => {
                     const item = document.createElement('div');
-                    item.className = "flex-1 flex flex-col items-center group relative min-w-[140px]";
+                    item.className = "flex-1 flex flex-col items-center group relative w-full md:w-auto";
                     
                     // 버블 크기 동적 계산 로직 (확실한 차이를 위해 범위 확대)
                     // 0만 -> 0px, 120만 -> 65px, 150만 -> 75px, 180만 -> 85px, 360만 -> 125px
@@ -519,26 +522,26 @@
                     };
 
                     item.innerHTML = `
-                        <div class="h-32 flex items-end justify-center mb-6">
+                        <div class="h-auto md:h-32 flex items-center md:items-end justify-center mb-4 md:mb-6">
                             ${m.firm > 0 ? `
                                 <div class="bg-brand-blue text-white rounded-full flex flex-col items-center justify-center shadow-xl bubble-animate group-hover:scale-110" 
                                      style="width:${getSize(m.firm)}px; height:${getSize(m.firm)}px;">
                                     <span class="text-[10px] font-bold opacity-80">기업</span>
-                                    <span class="text-[15px] font-black">${m.firm}만</span>
+                                    <span class="text-[14px] md:text-[15px] font-black">${m.firm}만</span>
                                 </div>
-                            ` : '<div class="w-3 h-3 rounded-full bg-slate-300"></div>'}
+                            ` : '<div class="w-3 h-3 rounded-full bg-slate-300 hidden md:block"></div>'}
                         </div>
-                        <div class="bg-white px-4 py-1 rounded-full border-2 border-slate-200 z-10 shadow-sm mb-6">
-                            <span class="text-gray-900 font-black text-xs md:text-sm whitespace-nowrap">${m.label}</span>
+                        <div class="bg-white px-6 py-2 rounded-full border-2 border-slate-200 z-10 shadow-md mb-4 md:mb-6">
+                            <span class="text-gray-900 font-black text-sm whitespace-nowrap">${m.label}</span>
                         </div>
-                        <div class="h-32 flex items-start justify-center">
+                        <div class="h-auto md:h-32 flex items-start justify-center mb-8 md:mb-0">
                             ${m.youth > 0 ? `
                                 <div class="bg-green-500 text-white rounded-full flex flex-col items-center justify-center shadow-xl bubble-animate group-hover:scale-110" 
                                      style="width:${getSize(m.youth)}px; height:${getSize(m.youth)}px;">
                                     <span class="text-[10px] font-bold opacity-80">청년</span>
-                                    <span class="text-[15px] font-black">${m.youth}만</span>
+                                    <span class="text-[14px] md:text-[15px] font-black">${m.youth}만</span>
                                 </div>
-                            ` : '<div class="w-3 h-3 rounded-full bg-slate-300"></div>'}
+                            ` : '<div class="w-3 h-3 rounded-full bg-slate-300 hidden md:block"></div>'}
                         </div>
                     `;
                     timelineCont.appendChild(item);
