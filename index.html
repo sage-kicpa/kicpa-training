@@ -60,26 +60,35 @@
 <body class="antialiased overflow-x-hidden">
 
     <!-- Navigation -->
-    <nav class="fixed w-full z-50 top-0 transition-all duration-300 py-4 bg-white/95 backdrop-blur-md border-b border-gray-200" id="navbar">
+    <nav class="fixed w-full z-50 top-0 transition-all duration-300 py-2 md:py-4 bg-white/95 backdrop-blur-md border-b border-gray-200" id="navbar">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex items-center gap-3 cursor-pointer" onclick="window.scrollTo(0,0)">
-                    <div class="bg-brand-blue p-2 rounded-lg shadow-lg shadow-blue-900/20">
-                        <span class="text-xl u-icon text-white leading-none">🏛️</span>
+            <div class="flex justify-between items-center h-14 md:h-16">
+                <!-- 로고 영역 -->
+                <div class="flex items-center gap-2 md:gap-3 cursor-pointer shrink-0" onclick="window.scrollTo(0,0)">
+                    <!-- 아이콘 크기 살짝 조절 -->
+                    <div class="bg-brand-blue p-1.5 md:p-2 rounded-lg shadow-lg shadow-blue-900/20">
+                        <span class="text-lg md:text-xl u-icon text-white leading-none">🏛️</span>
                     </div>
+                    <!-- 텍스트 크기를 모바일에서 최적화 (text-base) -->
                     <div class="flex flex-col">
-                        <span class="font-bold text-lg tracking-tight text-gray-900 leading-none">한국공인회계사회</span>
-                        <span class="text-[10px] text-brand-blue font-bold tracking-widest mt-1 uppercase">Digital KICPA</span>
+                        <span class="font-bold text-base md:text-lg tracking-tight text-gray-900 leading-none">한국공인회계사회</span>
+                        <span class="text-[9px] md:text-[10px] text-brand-blue font-bold tracking-widest mt-0.5 md:mt-1 uppercase">Digital KICPA</span>
                     </div>
                 </div>
+
+                <!-- 데스크탑 메뉴 (기존 유지) -->
                 <div class="hidden md:flex space-x-8 text-lg font-semibold">
                     <a href="#overview" class="text-gray-500 hover:text-brand-blue transition">사업 개요</a>
                     <a href="#benefits" class="text-gray-500 hover:text-brand-blue transition">핵심 혜택</a>
                     <a href="#roi-calc" class="text-gray-500 hover:text-brand-blue transition">도입 효과</a>
                     <a href="#talent" class="text-gray-500 hover:text-brand-blue transition">인재 역량</a>
                 </div>
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSc5DmYtIF4Jv7KcnG11OvxB2snEvFthJpCRbA7rMnR4BAjt9A/viewform?fbzx=-1909295762675014894" target="_blank" class="bg-brand-blue hover:bg-blue-900 text-white px-6 py-2.5 rounded-xl font-bold transition shadow-lg shadow-blue-900/20 text-lg inline-flex items-center">
-                    수요조사 참여 <span class="u-icon ml-2">📝</span>
+
+                <!-- 버튼 영역: 모바일에서 패딩과 폰트 크기 축소 -->
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSc5DmYtIF4Jv7KcnG11OvxB2snEvFthJpCRbA7rMnR4BAjt9A/viewform?fbzx=-1909295762675014894" 
+                   target="_blank" 
+                   class="bg-brand-blue hover:bg-blue-900 text-white px-3 py-2 md:px-6 md:py-2.5 rounded-xl font-bold transition shadow-lg shadow-blue-900/20 text-sm md:text-lg inline-flex items-center whitespace-nowrap shrink-0">
+                    수요조사 참여 <span class="u-icon ml-1 md:ml-2">📝</span>
                 </a>
             </div>
         </div>
@@ -350,7 +359,7 @@
                         <div class="mt-1 text-3xl u-icon text-blue-400 group-hover:scale-125 transition duration-300">📄</div>
                         <div>
                             <h4 class="text-xl font-bold mb-2 text-white group-hover:text-blue-400 transition">전표 및 기장 실무</h4>
-                            <p class="text-slate-400 text-sm leading-relaxed">회계원리에 입각한 정확한 데이터 입력 및 기초 전표 처리가 가능합니다.</p>
+                            <p class="text-slate-400 text-base leading-relaxed">회계원리에 입각한 정확한 데이터 입력 및 기초 전표 처리가 가능합니다.</p>
                         </div>
                     </div>
                     <!-- 2. 결산 및 세무 보조 -->
@@ -358,7 +367,7 @@
                         <div class="mt-1 text-3xl u-icon text-blue-400 group-hover:scale-125 transition duration-300">📊</div>
                         <div>
                             <h4 class="text-xl font-bold mb-2 text-white group-hover:text-blue-400 transition">결산 및 세무 보조</h4>
-                            <p class="text-slate-400 text-sm leading-relaxed">부가세 신고 등 주요 세무 일정에 맞춘 서류 정리 및 업무 보조를 수행합니다.</p>
+                            <p class="text-slate-400 text-base leading-relaxed">부가세 신고 등 주요 세무 일정에 맞춘 서류 정리 및 업무 보조를 수행합니다.</p>
                         </div>
                     </div>
                     <!-- 3. 디지털 적응력 -->
@@ -366,7 +375,7 @@
                         <div class="mt-1 text-3xl u-icon text-blue-400 group-hover:scale-125 transition duration-300">🖥️</div>
                         <div>
                             <h4 class="text-xl font-bold mb-2 text-white group-hover:text-blue-400 transition">디지털 적응력</h4>
-                            <p class="text-slate-400 text-sm leading-relaxed">AI ERP 시스템 등 최신 업무 툴을 빠르게 습득하여 사무실의 디지털화를 돕습니다.</p>
+                            <p class="text-slate-400 text-base leading-relaxed">AI ERP 시스템 등 최신 업무 툴을 빠르게 습득하여 사무실의 디지털화를 돕습니다.</p>
                         </div>
                     </div>
                 </div>
